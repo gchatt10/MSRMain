@@ -19,6 +19,10 @@ namespace Quesos
         {
             InitializeComponent();
             Image myImage = Resources.tabImg;
+            toolStripStatusLabel1.Text = "User: ";
+            toolStripStatusLabel2.Text = "  ";
+            toolStripStatusLabel3.Text = "Location:  ";
+            toolStripStatusLabel4.Text = "  ";
 
             TabControl.TabPageCollection pages = tabControl1.TabPages;
             foreach (TabPage page in pages)
@@ -28,8 +32,7 @@ namespace Quesos
             }
 
         }
-        
-
+       
         private void loginButton_Click(object sender, EventArgs e)
         {
             DoLogin();
@@ -55,6 +58,8 @@ namespace Quesos
                 if (uNtextBox.Text == "admin" && listBox3.Items.Contains(comboBox1.SelectedItem.ToString()))
                 {
                     loginMain = "admin";
+                    toolStripStatusLabel2.Text = "Administrator     ";
+                    toolStripStatusLabel4.Text = comboBox1.SelectedItem.ToString() + "      ";
                     locMain = comboBox1.SelectedItem.ToString();
                     addLocButton.Visible = true;
                     editloc.Visible = true;
@@ -86,8 +91,8 @@ namespace Quesos
             {
                 if (uNtextBox.Text != "admin" && listBox3.Items.Contains(comboBox1.SelectedItem.ToString()))
                 {
-                    //toolStripStatusLabel3.Text = "Location: " + comboBox1.SelectedItem.ToString();
-                    //toolStripStatusLabel2.Text = "User: " + uNtextBox.Text + "      ";
+                    toolStripStatusLabel4.Text = comboBox1.SelectedItem.ToString() + "      ";
+                    toolStripStatusLabel2.Text =uNtextBox.Text + "      ";
                     button4.Visible = false;
                     menuItem1.Visible = true;
                     menuItem7.Visible = true;
@@ -287,13 +292,13 @@ namespace Quesos
 
         private void addnoteButton_Click(object sender, EventArgs e)
         {
-            DoAddNewNote();
+            DoNewNote();
             //addnoteForm noteForm = new addnoteForm();
             //noteForm.ShowDialog();
             //if(noteForm.ShowDialog = DialogResult.Cancel)
             //listBox4.Items.Add(noteForm._addnotenote.ToString());
         }
-        public void DoAddNewNote()
+        public void DoNewNote()
         {
             addnoteForm testDialog = new addnoteForm();
 
@@ -337,6 +342,7 @@ namespace Quesos
         {
             locMain = listBox3.SelectedItem.ToString();
             locTB.Text = listBox3.SelectedItem.ToString();
+            toolStripStatusLabel4.Text = listBox3.SelectedItem.ToString();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -350,7 +356,7 @@ namespace Quesos
             {
                 if (addUserIDTextBox.Text != "" && addUNTextBox.Text != "")
                 {
-                    listBox2.Items.Add(addUserIDTextBox.Text + "        " + addUNTextBox.Text + "       " +
+                    listBox2.Items.Add(addUserIDTextBox.Text + "            " + addUNTextBox.Text + "           " +
                         comboBox2.SelectedItem.ToString
                         ());
                 }
@@ -364,5 +370,143 @@ namespace Quesos
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
             }
         }
+
+        private void editloc_Click(object sender, EventArgs e)
+        {
+            DoEditLoc();
+        }
+        public string _loceditForm1
+        {
+            get { return listBox3.SelectedItem.ToString(); }
+        }
+        public string _loceditmainForm
+        {
+            get { return locTB.Text; }
+        }
+        public string _addrsseditmainForm
+        {
+            get { return newaddrssTB.Text; }
+        }
+        public string _zipeditmainForm
+        {
+            get { return newzipTB.Text; }
+        }
+        private void DoEditLoc()
+        {
+            editLocForm editlocPU = new editLocForm();
+            editlocPU._locLabel = _loceditForm1;
+            editlocPU._locTB = _loceditmainForm;
+            editlocPU._addrssTB = _addrsseditmainForm;
+            editlocPU._zipTB = _zipeditmainForm;
+            editlocPU.ShowDialog();
+        }
+
+        private void addLocButton_Click(object sender, EventArgs e)
+        {
+            if (newaddrssTB.Text == "" || newzipTB.Text == "" || locTB.Text == "" || newsublocTB.Text == "" || listBox3.Items.Contains(locTB.Text))
+            {
+                MessageBox.Show("Location Already Exists!", "Error!", MessageBoxButtons.OK);
+            }
+            else
+            {
+                listBox3.Items.Add(locTB.Text);
+                newzipTB.Text = "";
+                locTB.Text = "";
+                newsublocTB.Text = "";
+                newaddrssTB.Text = "";
+            }
+        }
+
+        private void newLocButton_Click(object sender, EventArgs e)
+        {
+            if (newLocTextBox.Text != "" && newLocZipTextBox.Text != "")
+            {
+                try
+                {
+                    listBox1.Items.Add(newLocTextBox.Text + "       " + newLocZipTextBox.Text);
+                    newLocTextBox.Text = "";
+                    newLocZipTextBox.Text = "";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK);
+                }
+            }
+        }
+
+        private void secUpdateButton_Click(object sender, EventArgs e)
+        {
+            if (comboBox3.SelectedItem != null)
+            {
+                checkBox1.Checked = false;
+                checkBox2.Checked = false;
+                checkBox3.Checked = false;
+                checkBox4.Checked = false;
+                checkBox5.Checked = false;
+                comboBox3.SelectedItem = null;
+                MessageBox.Show("User updated successful!", "Success!", MessageBoxButtons.OK);
+            }
+            else
+            {
+                MessageBox.Show("Please select User first!", "Error!", MessageBoxButtons.OK);
+            }
+        }
+        private void uNtextBox_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)(13))  //this will react to pressing enter key
+            {
+                DoLogin();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+            netTextBox.Text = "";
+            grossTextBox.Text = "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if(textBox1.Text != "" && textBox1.Text != "" && textBox1.Text != "" && textBox1.Text != "")
+            {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+            netTextBox.Text = "";
+            grossTextBox.Text = "";
+            MessageBox.Show("Sales recorded successfully!", "Success!", MessageBoxButtons.OK);
+            }
+            else 
+            {
+                MessageBox.Show("Please enter sales details!", "Error!", MessageBoxButtons.OK);
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //good way to calculate totals
+            try
+            {
+                int n1l1 = int.Parse(textBox1.Text);
+                int n2l1 = int.Parse(textBox4.Text);
+                int g1l2 = int.Parse(textBox2.Text);
+                int g2l2 = int.Parse(textBox3.Text);
+                int netTotal = n1l1 + n2l1;
+                int grossTotal = g1l2 + g2l2;
+                grossTextBox.Text = Convert.ToString(grossTotal);
+                netTextBox.Text = Convert.ToString(netTotal);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK);
+            }
+
+        }
+        
     }
 }
