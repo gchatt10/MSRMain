@@ -57,6 +57,7 @@ namespace Quesos
             {
                 if (uNtextBox.Text == "admin" && listBox3.Items.Contains(comboBox1.SelectedItem.ToString()))
                 {
+                    button2.Visible = true;
                     loginMain = "admin";
                     toolStripStatusLabel2.Text = "Administrator     ";
                     toolStripStatusLabel4.Text = comboBox1.SelectedItem.ToString() + "      ";
@@ -471,8 +472,12 @@ namespace Quesos
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(textBox1.Text != "" && textBox1.Text != "" && textBox1.Text != "" && textBox1.Text != "")
+            if(textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && textBox4.Text != "" && netTextBox.Text != "" && 
+                grossTextBox.Text != "")
             {
+                listBox5.Items.Add(loginMain + "        " + locMain + "         " + "Net: " + netTextBox.Text +
+                    "         " +"Gross: " +  grossTextBox.Text +
+                    "       " + DateTime.Now);
             textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
