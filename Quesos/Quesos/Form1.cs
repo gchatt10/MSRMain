@@ -287,13 +287,13 @@ namespace Quesos
 
         private void addnoteButton_Click(object sender, EventArgs e)
         {
-            ShowMyDialogBox();
+            DoAddNewNote();
             //addnoteForm noteForm = new addnoteForm();
             //noteForm.ShowDialog();
             //if(noteForm.ShowDialog = DialogResult.Cancel)
             //listBox4.Items.Add(noteForm._addnotenote.ToString());
         }
-        public void ShowMyDialogBox()
+        public void DoAddNewNote()
         {
             addnoteForm testDialog = new addnoteForm();
 
